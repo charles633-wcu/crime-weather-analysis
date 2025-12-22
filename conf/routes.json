@@ -1,0 +1,22 @@
+[
+  {
+    "id": "data-api",
+    "uri": "/api/*",
+    "upstream": {
+      "type": "roundrobin",
+      "nodes": {
+        "data-service:8080": 1
+      }
+    }
+  },
+  {
+    "id": "analytics-api",
+    "uri": "/analytics/*",
+    "upstream": {
+      "type": "roundrobin",
+      "nodes": {
+        "analytics-service:8090": 1
+      }
+    }
+  }
+]

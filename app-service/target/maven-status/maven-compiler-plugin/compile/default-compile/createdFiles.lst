@@ -1,0 +1,6 @@
+com\charleswang\analytics\app\AnalyticsApplication.class
+com\charleswang\analytics\app\client\DataServiceClient.class
+com\charleswang\analytics\app\model\DailyPoint.class
+com\charleswang\analytics\app\service\RegressionService.class
+com\charleswang\analytics\app\api\AnalyticsRoutes.class
+com\charleswang\analytics\app\util\MathUtils.class

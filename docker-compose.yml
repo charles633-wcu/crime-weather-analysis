@@ -1,0 +1,105 @@
+version: "3.9"
+
+services:
+
+  data-service:
+    build:
+      context: .
+      dockerfile: data-service/Dockerfile
+    container_name: data-service
+    environment:
+      - DB_PATH=/data/crime_weather.db
+    volumes:
+      - ./crime_weather.db:/data/crime_weather.db
+    networks:
+      - apisix-network
+
+  analytics-service:
+    build:
+      context: .
+      dockerfile: app-service/Dockerfile
+    container_name: analytics-service
+    environment:
+      - DATASERVICE_URL=http://data-service:8080
+    depends_on:
+      - data-service
+    networks:
+      - apisix-network
+
+  etcd:
+    image: bitnamilegacy/etcd:3.4.9
+    container_name: etcd
+    environment:
+      ALLOW_NONE_AUTHENTICATION: "yes"
+      ETCD_ENABLE_V2: "true"
+      ETCD_ADVERTISE_CLIENT_URLS: "http://etcd:2379"
+      ETCD_LISTEN_CLIENT_URLS: "http://0.0.0.0:2379"
+    networks:
+      - apisix-network
+
+  apisix:
+    image: apache/apisix:3.7.0-debian
+    container_name: apisix
+    depends_on:
+      - etcd
+      - data-service
+      - analytics-service
+    volumes:
+      - ./conf/config.yaml:/usr/local/apisix/conf/config.yaml
+    ports:
+      - "9080:9080"
+      - "9180:9180"
+    networks:
+      - apisix-network
+
+  route-init:
+    image: curlimages/curl:8.6.0
+    container_name: route-init
+    depends_on:
+      - apisix
+    networks:
+      - apisix-network
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        echo "Waiting for APISIX admin API..."
+        until curl -s http://apisix:9180/apisix/admin/routes \
+          -H "X-API-KEY: edd1c9f034335f136f87ad84b625c8f1" \
+          | grep -q '"list"'; do
+          sleep 3
+        done
+
+        echo "Registering data-service routes"
+        curl -s -X PUT http://apisix:9180/apisix/admin/routes/1 \
+          -H "X-API-KEY: edd1c9f034335f136f87ad84b625c8f1" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "uri": "/api/*",
+            "upstream": {
+              "type": "roundrobin",
+              "nodes": {
+                "data-service:8080": 1
+              }
+            }
+          }'
+
+        echo "Registering analytics-service routes"
+        curl -s -X PUT http://apisix:9180/apisix/admin/routes/2 \
+          -H "X-API-KEY: edd1c9f034335f136f87ad84b625c8f1" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "uri": "/analytics/*",
+            "upstream": {
+              "type": "roundrobin",
+              "nodes": {
+                "analytics-service:8090": 1
+              }
+            }
+          }'
+
+        echo "Routes registered successfully."
+
+networks:
+  apisix-network:
+    driver: bridge

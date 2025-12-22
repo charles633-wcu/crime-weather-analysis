@@ -1,0 +1,154 @@
+Crime & Weather Analytics
+Statistical Dashboard – Best Practices Reminder
+==============================================
+
+PRIMARY GOAL
+------------
+Demonstrate statistical reasoning and data literacy, not just visualization.
+The dashboard should communicate patterns honestly, without overstating conclusions.
+
+
+DEFAULT VISUALIZATION
+---------------------
+Use AGGREGATED or SMOOTHED views by default.
+
+• Binned temperature → average incidents is preferred
+• Raw daily scatter plots are exploratory and should be secondary
+• Default view should reduce noise and improve interpretability
+
+
+SCATTER PLOT USAGE
+------------------
+Scatter plots are valid, but should be used carefully.
+
+Use scatter plots to:
+• Explore relationships
+• Show correlation + regression
+• Support analysis, not headlines
+
+Always include:
+• Regression line (if appropriate)
+• Clear axis labels
+• Acknowledgment of variability
+
+Scatter should be TOGGLED, not default.
+
+
+WHAT TO WRITE UNDER THE CHART
+-----------------------------
+Example language (keep it short and honest):
+
+"Daily-level data is highly variable. Aggregated temperature bins are shown
+by default to improve interpretability."
+
+or
+
+"A linear regression indicates a positive association between temperature
+and incident frequency; correlation does not imply causation."
+
+
+REGRESSION & CORRELATION
+------------------------
+Regression is allowed ONLY when:
+• There is a scatter plot
+• The relationship is described as ASSOCIATION
+• No causal claims are made
+
+Good:
+• Pearson correlation coefficient (r)
+• R² value
+• Brief interpretation
+
+Avoid:
+• Causal language
+• Overconfident conclusions
+
+
+TIME-BASED VISUALS (USE SPARINGLY)
+---------------------------------
+Do NOT overlay temperature and incidents on the same time chart with dual axes.
+
+Acceptable time-based charts:
+• Rolling average of incidents only
+• Incident counts per year
+• Monthly averages (seasonality)
+
+Temperature trends should be discussed in text if needed.
+
+
+BINNING GUIDELINES
+------------------
+Temperature bins should:
+• Be coarse (3–5 bins max)
+• Cover meaningful ranges
+• Be consistent across the dataset
+
+Always use averages or medians within bins.
+
+
+SEARCH / DRILL-DOWN
+-------------------
+Search-by-date is GOOD.
+
+Purpose:
+• Ground abstract statistics in concrete examples
+• Allow verification of aggregated trends
+• Improve transparency
+
+Search output should include:
+• Date
+• Temperature
+• Incident count
+• Raw incident list (if available)
+
+
+LIMITATIONS (HIGH VALUE)
+-----------------------
+Always acknowledge limitations.
+
+Examples:
+• Correlation does not imply causation
+• Seasonality may confound results
+• Reporting practices may vary by year
+• External socioeconomic factors not included
+
+This signals maturity and credibility.
+
+
+WHAT TO AVOID
+-------------
+• Dual y-axis charts
+• Claims of causation
+• Overly complex models
+• Machine learning for simple relationships
+• Excessive UI controls
+• Overfitting visuals to tell a story
+
+
+FINAL CHECK
+-----------
+If a recruiter or reviewer asks:
+"What insight does this chart provide?"
+
+You should be able to answer in ONE sentence.
+
+
+PHILOSOPHY
+----------
+Clarity > complexity
+Honesty > impressiveness
+Interpretability > aesthetics
+
+
+PUT NUMBERS UNDER THE CHART SUMMARY
+You only need 4–5 numbers total:
+
+Correlation coefficient (r)
+
+R²
+
+Regression slope (β)
+
+Mean incidents per day
+
+Standard deviation (optional)

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Violent Crime & Daily High Temperature Analytics</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="page">
+
+  <h1>Crime & Weather Insight Analytics</h1>
+
+  <div class="controls">
+    <button onclick="showBins()">Trend</button>
+    <button onclick="showScatter()">Scatter</button>
+
+    <!-- Scatter-only filter -->
+    <label id="tempFilterControl" style="display:none; margin-left:16px;">
+      Temperature Range:
+      <select id="tempFilterSelect" onchange="applyTempFilter(this.value)">
+        <option value="all">All</option>
+        <option value="below32">Below 32°F</option>
+        <option value="32to50">32–50°F</option>
+        <option value="50to70">50–70°F</option>
+        <option value="70to90">70–90°F</option>
+        <option value="above90">Above 90°F</option>
+      </select>
+    </label>
+  </div>
+
+
+
+  <div class="chart-container">
+    <canvas id="chart"></canvas>
+  </div>
+
+  <div class="analysis-summary">
+    <p>
+      This dashboard examines the relationship between daily maximum temperature and the
+      frequency of shooting incidents in New York City from 2006 to 2024. A simple linear
+      regression model summarizes whether warmer days are associated with higher incident counts.
+    </p>
+    <p>
+      Correlation reflects association only and does not imply causation.
+    </p>
+  </div>
+
+  <div class="stats">
+    <h3>Statistical Summary</h3>
+    <ul>
+      <li><strong>Slope (β):</strong> <span id="beta">—</span></li>
+      <li><strong>Correlation (r):</strong> <span id="corr">—</span></li>
+      <li><strong>R²:</strong> <span id="r2">—</span></li>
+    </ul>
+    <p id="beta-interpretation"></p>
+    <p class="note">Dataset includes 29,745 recorded shooting incidents.</p>
+  </div>
+
+  <h2>Search by Date</h2>
+  <input type="date" id="dateInput" min="2006-01-01" max="2024-12-31">
+  <button onclick="search()">Search</button>
+
+  <h3>Daily Summary</h3>
+  <pre id="summary">Please select a valid date within the available data range (January 1, 2006–December 31, 2024).</pre>
+
+  <h3>Incidents</h3>
+  <pre id="incidents"></pre>
+
+</div>
+
+<script>
+  // GLOBAL STATE (single source of truth)
+  window.currentChart = null;
+
+  window.SUMMARY_DATA = [];      // always ALL daily rows
+  window.ANALYTICS_DATA = null;  // global regression + r_squared etc.
+
+  window.CHART_MODE = "bins";    // "bins" or "scatter"
+  window.SCATTER_FILTER = "all"; // filter selection for scatter view
+</script>
+
+<script src="chart_bin.js"></script>
+<script src="chart_scatter.js"></script>
+<script src="search.js"></script>
+
+<script>
+async function initApp() {
+  try {
+    const [summaryRes, analyticsRes] = await Promise.all([
+      fetch("http://localhost:9080/api/summary/daily"),
+      fetch("http://localhost:9080/analytics/regression")
+    ]);
+
+    if (!summaryRes.ok) throw new Error("Failed to fetch summary data");
+    if (!analyticsRes.ok) throw new Error("Failed to fetch analytics data");
+
+    window.SUMMARY_DATA = await summaryRes.json();
+    window.ANALYTICS_DATA = await analyticsRes.json();
+
+    // Populate GLOBAL stats once
+    const beta = window.ANALYTICS_DATA.beta;
+    const r2 = window.ANALYTICS_DATA.r_squared;
+    const r = Math.sign(beta) * Math.sqrt(r2);
+
+    document.getElementById("beta").textContent = beta.toFixed(2);
+    document.getElementById("r2").textContent = r2.toFixed(2);
+    document.getElementById("corr").textContent = r.toFixed(2);
+
+    document.getElementById("beta-interpretation").textContent =
+      `Each 10°F increase in maximum daily temperature is associated with approximately ${(beta * 10).toFixed(1)} additional shooting incidents per day (global model).`;
+
+    // Default view: binned using ALL data
+    showBins();
+  } catch (e) {
+    console.error(e);
+    document.getElementById("beta-interpretation").textContent =
+      "Error loading analytics. Please verify the API is running.";
+  }
+}
+
+function showBins() {
+  window.CHART_MODE = "bins";
+  document.getElementById("tempFilterControl").style.display = "none";
+  initBinsChart(); // always uses ALL data
+}
+
+function showScatter() {
+  window.CHART_MODE = "scatter";
+  document.getElementById("tempFilterControl").style.display = "inline-block";
+
+  // default scatter should use ALL unless user already chose a filter
+  const sel = document.getElementById("tempFilterSelect");
+  sel.value = window.SCATTER_FILTER || "all";
+
+  initChart(); // scatter uses ALL unless filter != all
+}
+
+initApp();
+</script>
+
+</body>
+</html>

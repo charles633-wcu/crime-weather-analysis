@@ -1,0 +1,5 @@
+com\charleswang\analytics\loader\TemperatureLoader.class
+com\charleswang\analytics\loader\IncidentLoader.class
+com\charleswang\analytics\loader\IncidentLoader$IncidentRow.class
+com\charleswang\analytics\loader\DatabaseManager.class
+com\charleswang\analytics\loader\LoaderMain.class

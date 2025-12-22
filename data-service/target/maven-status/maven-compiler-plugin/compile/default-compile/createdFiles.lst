@@ -1,0 +1,5 @@
+com\charleswang\analytics\data\config\DatabaseConfig.class
+com\charleswang\analytics\data\DataServiceApplication.class
+com\charleswang\analytics\data\dao\SummaryDao.class
+com\charleswang\analytics\data\dao\TemperatureDao.class
+com\charleswang\analytics\data\dao\IncidentDao.class
