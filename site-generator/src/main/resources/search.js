@@ -28,6 +28,9 @@ function formatIncidents(incidents) {
 }
 
 async function search() {
+
+  const API_BASE = "http://54.173.129.38:9080";
+
   const date = document.getElementById("dateInput").value;
   if (!date) return;
 
@@ -36,7 +39,7 @@ async function search() {
     day ? formatDailySummary(day) : "No summary found for this date.";
 
   try {
-    const res = await fetch(`http://localhost:9080/api/incidents/by-date?date=${date}`);
+    const res = await fetch(`${API_BASE}/api/incidents/by-date?date=${date}`);
     if (!res.ok) throw new Error();
 
     const incidents = await res.json();

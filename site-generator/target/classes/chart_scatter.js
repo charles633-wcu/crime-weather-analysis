@@ -82,7 +82,7 @@ function initChart() {
       label: "Regression Line (Global Model)",
       data: regressionLine,
       showLine: true,        // 🔑 THIS IS THE FIX
-      borderColor: "rgba(180, 110, 70, 1)",
+      borderColor: "rgba(229, 126, 67, 1)",
       borderWidth: 3,
       pointRadius: 0,
       fill: false,

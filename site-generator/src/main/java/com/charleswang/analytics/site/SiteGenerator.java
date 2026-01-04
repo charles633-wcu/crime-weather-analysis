@@ -19,10 +19,10 @@ public class SiteGenerator {
         Paths.get("site-generator/src/main/resources").toAbsolutePath();
 
     private static final String SUMMARY_URL =
-        "http://localhost:9080/api/summary/daily";
+        "http://localhost:8080/api/summary/daily";
 
     private static final String ANALYTICS_URL =
-        "http://localhost:9080/analytics/regression";
+        "http://localhost:8090/analytics/regression";
 
     public static void main(String[] args) {
         try {

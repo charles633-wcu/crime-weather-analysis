@@ -18,7 +18,6 @@ public class LoaderMain {
             password = DEFAULT_PASSWORD;
         }
 
-        // -------- TEMPERATURE --------
         TemperatureLoader tempLoader = new TemperatureLoader();
         tempLoader.fetch();
 

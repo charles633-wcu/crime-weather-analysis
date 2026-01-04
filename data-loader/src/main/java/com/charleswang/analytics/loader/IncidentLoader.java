@@ -73,7 +73,6 @@ public class IncidentLoader {
 
     }
 
-    // small inner holder (simpler than a public record)
     static class IncidentRow {
         String incidentKey, occurDate, borough, vicSex, vicAgeGroup, perpSex, perpAgeGroup;
         int precinct;

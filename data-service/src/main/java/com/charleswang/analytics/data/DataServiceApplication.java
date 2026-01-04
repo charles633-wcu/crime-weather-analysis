@@ -85,7 +85,6 @@ public class DataServiceApplication {
         });
     }
 
-    // 🔽 add helper method at bottom of file
     private static void enableCORS() {
         options("/*", (request, response) -> {
             String headers = request.headers("Access-Control-Request-Headers");

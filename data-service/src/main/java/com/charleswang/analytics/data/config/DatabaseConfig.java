@@ -10,7 +10,6 @@ public class DatabaseConfig {
     private static final String DB_URL;
 
     static {
-        // 1. Try env var (container / prod)
         String dbPathEnv = System.getenv("DB_PATH");
 
         Path dbPath;
