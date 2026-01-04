@@ -170,8 +170,6 @@ For demonstration purposes, services are exposed over HTTP. In a production depl
 
 ## Project Structure
 
-## Project Structure
-
 ```text
 crime-weather-analysis/
 ├── data-loader/        # Data ingestion and database population
