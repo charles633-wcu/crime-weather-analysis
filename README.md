@@ -1,79 +1,7 @@
-
-FOR LATER:::
-
-(resume stuff)
-Crime & Weather Insight Analytics Platform
-• Designed and implemented a multi-service analytics platform in Java to analyze relationships between daily temperature and NYC shooting incidents (2006–2024).
-• Built RESTful APIs using SparkJava to expose daily summaries, incident-level queries, and statistical analytics.
-• Developed a backend analytics service to compute linear regression metrics (slope, correlation coefficient, R²) and served results via API endpoints.
-• Containerized services using Docker and orchestrated them with Docker Compose, enabling reproducible local and cloud deployments.
-• Deployed the system to AWS, hosting backend services on EC2 and a static frontend dashboard on S3 Static Website Hosting.
-
-ADD THESE TO CLOUD , backend, infra roles
-• Configured an API gateway (Apache APISIX) to route requests between services and handle browser CORS behavior.
-• Managed cloud networking concepts including security groups, exposed ports, and container networking on AWS EC2.
-• Implemented static site generation and decoupled frontend hosting from backend compute to improve scalability and reliability.
-
-AI READER SKILLS
-Java, REST APIs, SparkJava, Docker, Docker Compose, AWS EC2, AWS S3, API Gateway, SQL, SQLite, Data Analytics, Statistical Analysis, Cloud Deployment
-
-one liner
-Built and deployed a Java-based analytics platform using Docker and AWS to visualize and analyze relationships between temperature and crime data via REST APIs and a static dashboard.
-
-ultra ats version
-• Built Java REST APIs and analytics services for temperature and crime data analysis.
-• Containerized services with Docker and deployed to AWS EC2 with a static frontend hosted on S3.
-
--------------------------
-
-##Beginner / class project (you now)
-
-S3 static site
-
-EC2 API
-
-HTTP
-
-Different URLs
-
-Config-based API base
-
-
-##Intermediate
-
-CloudFront
-
-One domain
-
-HTTPS
-
-Path-based routing
-
-
-##Production
-
-CloudFront + ALB
-
-Auto-scaling
-
-WAF
-
-CI/CD
-
-
-MAYBE DELETE
-Security & HTTPS
-
-The application currently runs over HTTP for development and demonstration purposes.
-In a production deployment, HTTPS would be terminated at a CDN or load balancer (e.g., AWS CloudFront or ALB), with traffic forwarded internally to the API gateway and services over HTTP. This mirrors standard industry practice and avoids embedding TLS logic inside application containers.
-
+# Crime & Weather Insight Analytics
 
 Link  
 http://crime-temperature-dashboard.s3-website-us-east-1.amazonaws.com/index.html
-MAYBE MAKE A CHART FOR A HISTORICAL INCIDENTS MOVING AVERAGE
-
-WRITE (FOR INTERVIEW IN A SCALABLE PROJECT THERE WOULD BE A SEPERATE DATABASE CONTAINER, FRONT END DYNAMICALLY SERVED FROM AN API. BUT THIS PROJECT IS STATIC SO ITS JUST A DEMONSTRATION
-# Crime & Weather Insight Analytics
 
 ## Overview
 
@@ -252,6 +180,3 @@ crime-weather-analysis/
 ├── web/                # Static frontend entry
 ├── docker-compose.yml
 └── README.md
-#   c r i m e - w e a t h e r - a n a l y s i s  
- #   c r i m e - w e a t h e r - a n a l y s i s  
- 
