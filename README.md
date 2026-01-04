@@ -160,7 +160,6 @@ The application is deployed using **Amazon Web Services** with a clear separatio
 - Internal service communication occurs over Docker networking
 - The static dashboard is hosted using **Amazon S3 Static Website Hosting**
 - The frontend fetches live data from EC2-hosted APIs at runtime
-(IS TAHT TRUE? MAYBE MENTION THAT FOR A LIVE SERVICE IT WOULD BE A BIT DIFFERENT, RDS WOULD HOST INDUSTRY PROJECTS)
 
 This deployment reflects real-world practices where APIs run on compute infrastructure and frontends are served as static assets.
 
