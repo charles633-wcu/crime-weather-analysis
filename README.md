@@ -75,7 +75,6 @@ The dataset includes **29,745 recorded shooting incidents** across the study per
 ### Important Caveats
 - Temperature explains only a portion of daily variation
 - Many social, temporal, and environmental factors influence incident rates
-- Results should be interpreted as **associational**, not causal
 
 ---
 
@@ -158,11 +157,6 @@ The application is deployed using **Amazon Web Services** with a clear separatio
 - Internal service communication occurs over Docker networking
 - The static dashboard is hosted using **Amazon S3 Static Website Hosting**
 - The frontend fetches live data from EC2-hosted APIs at runtime
-
-This deployment reflects real-world practices where APIs run on compute infrastructure and frontends are served as static assets.
-
-### HTTPS Note
-For demonstration purposes, services are exposed over HTTP. In a production deployment, HTTPS would be terminated at a CDN or load balancer (e.g., AWS CloudFront or an Application Load Balancer), with traffic forwarded internally to the API gateway over HTTP.
 
 ---
 
