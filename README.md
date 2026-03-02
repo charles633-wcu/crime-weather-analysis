@@ -5,7 +5,7 @@ http://crime-temperature-dashboard.s3-website-us-east-1.amazonaws.com/index.html
 
 ## Overview
 
-This project explores the relationship between **daily maximum temperature** and **shooting incidents in New York City** using historical data from **2006–2024**. It combines data ingestion, backend analytics, API routing, and a frontend dashboard to provide both **descriptive** and **statistical** views of the data.
+#### This project explores the relationship between **daily maximum temperature** and **shooting incidents in New York City** using historical data from **2006–2024**. It combines data ingestion, backend analytics, API routing, and a frontend dashboard to provide both **descriptive** and **statistical** views of the data.
 The goal of the project is **not prediction**, but rather to **visualize patterns and associations** between temperature and incident frequency in a clear, defensible way. 
 ---
 
